@@ -16,20 +16,20 @@ public class Barang {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="namaBarang",nullable=false, length = 50)
-	private String namaBarang;
+	@Column(name="namabarang",nullable=false, length = 50)
+	private String namabarang;
 	
-	@Column(name="JenisBarang", length = 30)
-	private String jenisBarang;
+	@Column(name="jenisbarang", length = 30)
+	private String jenisbarang;
 	
-	@Column(name="kotaPembuat", length = 30)
-	private String kotaPembuat;
+	@Column(name="kotapembuat", length = 30)
+	private String kotapembuat;
 	
-	@Column(name="jmlBarang")
-	private int jmlBarang;
+	@Column(name="jmlbarang")
+	private int jmlbarang;
 	
-	@Column(name="hargaBarang")
-	private int hargaBarang;
+	@Column(name="hargabarang")
+	private int hargabarang;
 
 	public int getId() {
 		return id;
@@ -39,45 +39,46 @@ public class Barang {
 		this.id = id;
 	}
 
-	public String getNamaBarang() {
-		return namaBarang;
+	public String getNamabarang() {
+		return namabarang;
 	}
 
-	public void setNamaBarang(String namaBarang) {
-		this.namaBarang = namaBarang;
+	public void setNamabarang(String namabarang) {
+		this.namabarang = namabarang;
 	}
 
-	public String getJenisBarang() {
-		return jenisBarang;
+	public String getJenisbarang() {
+		return jenisbarang;
 	}
 
-	public void setJenisBarang(String jenisBarang) {
-		this.jenisBarang = jenisBarang;
+	public void setJenisbarang(String jenisbarang) {
+		this.jenisbarang = jenisbarang;
 	}
 
-	public String getKotaPembuat() {
-		return kotaPembuat;
+	public String getKotapembuat() {
+		return kotapembuat;
 	}
 
-	public void setKotaPembuat(String kotaPembuat) {
-		this.kotaPembuat = kotaPembuat;
+	public void setKotapembuat(String kotapembuat) {
+		this.kotapembuat = kotapembuat;
 	}
 
-	public int getJmlBarang() {
-		return jmlBarang;
+	public int getJmlbarang() {
+		return jmlbarang;
 	}
 
-	public void setJmlBarang(int jmlBarang) {
-		this.jmlBarang = jmlBarang;
+	public void setJmlbarang(int jmlbarang) {
+		this.jmlbarang = jmlbarang;
 	}
 
-	public int getHargaBarang() {
-		return hargaBarang;
+	public int getHargabarang() {
+		return hargabarang;
 	}
 
-	public void setHargaBarang(int hargaBarang) {
-		this.hargaBarang = hargaBarang;
+	public void setHargabarang(int hargabarang) {
+		this.hargabarang = hargabarang;
 	}
-	
-	
+
+
+
 }

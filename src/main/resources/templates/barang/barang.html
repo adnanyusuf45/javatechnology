@@ -2,9 +2,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+
 <title>Insert title here</title>
+<link rel="stylesheet" href="../styles/css/bootstrap.min.css">
+<script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	Halaman Barang
+
+	<br>
+	<button class="btn btn-success">Create New</button>
+	<br>
+	<!-- tempat untuk jahit table -->
+	<div id="idDivTableBarang">
+	
+	
+	</div>
+
+	<script>
+		$(document).ready(function() {
+
+			$.ajax({
+				url : './listbarang',
+				method : 'Get',
+				success : function(model) {
+					debugger;
+					$('#idDivTableBarang').html(model);
+				},
+				error:function(model){
+					debugger;
+				}
+			});
+		});
+	</script>
 </body>
 </html>
