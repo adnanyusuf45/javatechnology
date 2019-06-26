@@ -6,18 +6,30 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../styles/css/bootstrap.min.css">
 <script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../styles/js/bootstrap.min.js"></script>
 </head>
 <body>
 	Halaman Barang
 
 	<br>
-	<button class="btn btn-success">Create New</button>
+	<button id= "idBtnNewBarang" class="btn btn-success">Create New</button>
 	<br>
 	<!-- tempat untuk jahit table -->
 	<div id="idDivTableBarang">
 	
 	
 	</div>
+
+<div id="idMdlNewBarang" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div id="idMdlBodyNewBarang"class="modal-body">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 	<script>
 		$(document).ready(function() {
@@ -26,12 +38,29 @@
 				url : './listbarang',
 				method : 'Get',
 				success : function(model) {
-					debugger;
+
 					$('#idDivTableBarang').html(model);
 				},
 				error:function(model){
 					debugger;
 				}
+			});
+			
+			$('#idBtnNewBarang').click(function(){
+
+				/*panggil url tambah barang menggunakan ajax*/
+				$.ajax({
+					url : './newbarang',
+					method: 'Get',
+					success : function(model){
+						//jahit model return dari controller ke body modal
+						$('#idMdlBodyNewBarang').html(model);
+						$('#idMdlNewBarang').modal('show');
+					},
+					error : function(model){
+						debugger;
+					}
+				});
 			});
 		});
 	</script>

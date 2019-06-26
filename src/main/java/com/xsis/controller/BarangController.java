@@ -31,4 +31,13 @@ public class BarangController {
 		
 		return ("barang/listbarang");
 	}
+	
+	@RequestMapping("/newbarang")
+	public String newbarang(Model model) {
+		Barang barang=new Barang();
+		
+		model.addAttribute("barang",barang);
+		
+		return ("barang/newbarang");
+	}
 }
