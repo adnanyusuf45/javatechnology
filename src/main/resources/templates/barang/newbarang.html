@@ -6,7 +6,7 @@
 </head>
 <body>
 	<br>
-	<form class="form-horizontal" id="idFrmAddBarang" th:object="${barang}">
+	<form class="form-horizontal" id="idFrmAddBarang" th:object="${barangs}">
 		<div class="form-group">
 			<label for="namabarang" class="col-sm-2 control-label">Nama barang</label>
 			<div class="col-sm-10">
@@ -51,10 +51,28 @@
 
 <script type="text/javascript">
 	$('#idBtnSaveBarang').click(function(){
-		
 		var vDatabarang = $('#idFrmAddBarang').serialize();
-		debugger;
-		
+		$.ajax({
+			url:'./savebarang',
+			data:vDatabarang,
+			method:'POST',
+			success: function(model){
+
+				if(model.status == "berhasil"){
+					alert("Data berhasil di simpan");
+					$('#idMdlNewBarang').modal('hide');
+					/*redirecting to home of barang */
+					window.location.replace("http://localhost:8787/barang");
+				}
+				else{
+					alert("Data salah");
+				}
+			},
+			error: function(model){
+				debugger;
+			}
+			
+		})
 	});
 
 

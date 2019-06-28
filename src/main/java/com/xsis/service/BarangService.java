@@ -19,4 +19,25 @@ public class BarangService {
 	public List<Barang> listall(){
 		return brng.findAll();
 	}
+	
+	public boolean simpan(Barang barang) {
+		try {
+			brng.save(barang);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+	}
+	
+	public boolean hapus(Barang barang) {
+		try {
+			brng.delete(barang);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
 }

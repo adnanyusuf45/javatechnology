@@ -28,14 +28,9 @@
 					<td th:text="${item.jmlbarang}">JumlahBarang</td>
 					<td th:text="${item.hargabarang}">Harga</td>
 					<td>
-						<button class="btn btn-primary">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-						<button class="btn btn-warning">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</button>
-						<button class="btn btn-danger">
-							<span class="glyphicon glyphicon-trash"></span>
+						<button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+						<button class="btn btn-success clBtnEditBarang" th:data-id="${item.id}" th:data-nmbarang="${item.namabarang}" th:data-jnsbarang="${item.jenisbarang}" th:data-ktpembuat="${item.kotapembuat}" th:data-jmlbarang="${item.jmlbarang}" th:data-hrgbarang="${item.hargabarang}"><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger clBtnDeleteBarang" th:data-id2="${item.id}" th:data-nmbarang2="${item.namabarang}" th:data-jnsbarang2="${item.jenisbarang}" th:data-ktpembuat2="${item.kotapembuat}" th:data-jmlbarang2="${item.jmlbarang}" th:data-hrgbarang2="${item.hargabarang}" ><span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</td>
 
@@ -44,5 +39,32 @@
 			</tbody>
 		</table>
 	</div>
+	
+
+
+	<script>
+	$('.clBtnEditBarang').click(function(){
+		/*panggil url tambah barang menggunakan ajax*/
+		$('#ideditid').val($(this).attr('data-id'));
+		$('#ideditnamabarang').val($(this).attr('data-nmbarang'));
+		$('#ideditjenisbarang').val($(this).attr('data-jnsbarang'));
+		$('#ideditkotapembuat').val($(this).attr('data-ktpembuat'));
+		$('#ideditjmlbarang').val($(this).attr('data-jmlbarang'));
+		$('#idedithargabarang').val($(this).attr('data-hrgbarang'));
+		$('#idMdlEditBarang').modal('show');
+	});
+	
+	$('.clBtnDeleteBarang').click(function(){
+		/*panggil url tambah barang menggunakan ajax*/
+		$('#iddeleteid').val($(this).attr('data-id2'));
+		$('#iddeletenamabarang').val($(this).attr('data-nmbarang2'));
+		$('#iddeletejenisbarang').val($(this).attr('data-jnsbarang2'));
+		$('#iddeletekotapembuat').val($(this).attr('data-ktpembuat2'));
+		$('#iddeletejmlbarang').val($(this).attr('data-jmlbarang2'));
+		$('#iddeletehargabarang').val($(this).attr('data-hrgbarang2'));
+		$('#idMdlDeleteBarang').modal('show');
+	});
+	</script>
+	
 </body>
 </html>
