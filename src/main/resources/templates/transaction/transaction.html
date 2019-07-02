@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../styles/css/bootstrap.min.css">
+<script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../styles/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="row">
+		<!-- kolom sebelah kiri -->
+		<div class="col-md-6">
+
+			<form class="form-horizontal" id="idFrmTotalTransaction">
+				<div class="form-group">
+					<label for="nofaktur" class="col-sm-2 control-label"><br>
+					<br>No. Faktur</label>
+					<div class="col-sm-6">
+						<br> <br> <input type="text" class="form-control" id="idnofaktur" name="nofaktur">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="tanggal" class="col-sm-2 control-label">Tanggal</label>
+					<div class="col-sm-6">
+						<input type="date" class="form-control" id="idtanggal" name="tanggal">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="namakasir" class="col-sm-2 control-label">Nama Kasir</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="idnamakasir" name="namakasir">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-12">
+						<input type="text" class="form-control" id="idcari" name="cari"
+							placeholder="cari">
+					</div>
+				</div>
+			</form>
+
+			<!-- tempat untuk jahit table -->
+			<div id="idDivTableTransaction"></div>
+
+		</div>
+
+		<!-- kolom sebelah kanan -->
+		<div class="col-md-6">
+			<br> <br>
+
+			<!-- tempat untuk jahit table -->
+
+			<div class="table-responsive" id="idDivTableTransaction2">
+					<table class="table">
+			<thead>
+				<tr>
+					<td>Nama</td>
+					<td>Jumlah</td>
+					<td>Subtotal</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody id="idTblBodyTransaction2">
+
+
+			</tbody>
+		</table>
+			</div>
+
+			<form class="form-horizontal" id="idFrmTotalTransaction">
+				<div class="form-group">
+					<label for="totalharga" class="col-sm-2 control-label">Total harga</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="idtotalharga"  name="totalharga" readonly>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="bayar" class="col-sm-2 control-label">Bayar</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="idbayar" name="bayar">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="sisa" class="col-sm-2 control-label">Sisa</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="idsisa" name="sisa">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-6 col-sm-10">
+						<button type="button" class="btn btn-default"
+							id="idBtnSaveTransaction">Submit</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+	<script>
+		$(document).ready(function() {
+		
+
+			$.ajax({
+				url : './listbarangtransaction',
+				method : 'Get',
+				success : function(model) {
+
+					$('#idDivTableTransaction').html(model);
+				},
+				error : function(model) {
+					debugger;
+				}
+			});
+		
+			$('#idbayar').keypress(function(e) {
+			    if(e.which == 13) {
+			    	var vBayar=document.getElementById("idbayar").value;
+			    	var vTotal=document.getElementById("idtotalharga").value;
+			    	debugger;
+			        if(vBayar==0)
+			        	{
+			        	alert('Tidak Boleh 0');
+			        	}
+			        else if(vBayar < vTotal)
+			        {
+			        	alert('Uang Kurang');
+			        }
+			        else if(vBayar >= vTotal)
+			        	{
+			        	  var vSisa= vBayar-vTotal;
+			        	  $('#idsisa').val(vSisa);
+			        	  debugger;
+			        	}
+			    }
+			});
+		});
+	</script>
+</body>
+</html>

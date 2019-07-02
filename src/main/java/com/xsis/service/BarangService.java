@@ -31,9 +31,9 @@ public class BarangService {
 		
 	}
 	
-	public boolean hapus(Barang barang) {
+	public boolean hapus(Long id) {
 		try {
-			brng.delete(barang);
+			brng.deleteById(id);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

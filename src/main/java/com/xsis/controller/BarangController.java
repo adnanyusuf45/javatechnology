@@ -87,19 +87,19 @@ public class BarangController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/deletebarang", method=RequestMethod.DELETE)
-	public Map<String,String> deletebarang(@ModelAttribute("barangs") Barang barangs, Model model) {
+	@RequestMapping(value="/deletebarang/{angka}", method=RequestMethod.DELETE)
+	public Map<String,String> deletebarang(@PathVariable("angka") Long angka, Model model) {
 		
-		System.out.println(barangs);
-		//brngsr.save(barangs);
+		System.out.println(angka);
+		brngsr.hapus(angka);
 		
 		Map<String,String> map= new HashMap<>();
 		
-		if (brngsr.hapus(barangs)) {
+		/*if (brngsr.hapus(angka)) {
 			map.put("status", "berhasil");
 		} else {
 			map.put("status", "gagal");
-		}
+		}*/
 		
 		return map;
 	}

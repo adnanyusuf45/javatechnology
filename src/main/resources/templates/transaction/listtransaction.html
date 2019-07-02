@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<!-- Nulis table didalam body -->
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Nama</td>
+					<td>Jenis</td>
+					<td>Harga</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody id="idTblTransaction">
+				<tr th:each="item : ${keybarang}">
+					<td th:text="${item.namabarang}">NamaBarang</td>
+					<td th:text="${item.jenisbarang}">JenisBarang</td>
+					<td th:text="${item.hargabarang}">Harga</td>
+					<td>
+						<button class="btn btn-primary clBtnAddTransaction"
+							th:data-id="${item.id}" th:data-nmbarang="${item.namabarang}"
+							th:data-jnsbarang="${item.jenisbarang}"
+							th:data-ktpembuat="${item.kotapembuat}"
+							th:data-jmlbarang="${item.jmlbarang}"
+							th:data-hrgbarang="${item.hargabarang}">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</td>
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+	$(document).ready(function(){
+		
+        
+		 $('.clBtnAddTransaction').click(function() {
+		        var vCtr = 0;
+		        var VCompare = true;
+		        var vJmlBarang = 1;
+		        var vSubTotal=0;
+		        var vTotalHarga=0;
+				var vJahitHtml ='';
+				var vIdBarang=$(this).attr('data-id');
+				//var vNamaBarang=$(this).attr('data-nmbarang');
+			    vSubTotal=JSON.parse($(this).attr('data-hrgbarang'));
+				var vStrHtmlTrasaksi = '';
+				
+             $('.clIdBarang').each(function (i, d) {
+                 
+                 if (vIdBarang == parseInt($(this).val())) {
+                     VCompare = false;
+                     
+                     vJmlBarang = $(this).parent().parent().find('td input:text.clJmlBarang').val();
+                     vJmlBarang++;
+                     $(this).parent().parent().find('td input:text.clJmlBarang').val(vJmlBarang);
+                     vSubTotal = vJmlBarang * vSubTotal;
+                     $(this).parent().parent().find('td input:text.clSubTotal').val(vSubTotal);
+                     $('.clSubTotal').each(function (i, d) {
+                    	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
+                         });
+                     $('#idtotalharga').val(vTotalHarga);
+                     debugger;
+                 }
+             });
+             
+             if (VCompare == false) {
+                 debugger;
+                 vCtr = 1;
+                 VCompare = true;
+             } else {
+                 debugger;
+                 vCtr = 0;
+             }
+				
+             if(vCtr == 0){
+             	
+				debugger;
+				vJmlBarang = 1;
+                 vStrHtmlTrasaksi = vStrHtmlTrasaksi +
+                     '<tr>' +
+                         '<td>' +
+                            '<input type="text" class="clNmBarang" value=" ' + $(this).attr('data-nmbarang') + '" readonly>' +
+                             //'<input type="text" class="clNmBarang" dataID="' + vIdBarang + '" value=" ' + $(this).attr('data-nmbarang') + '" readonly>' +
+                             '<input type="text" class="clIdBarang" value="' + $(this).attr('data-id') + '" readonly>' +
+                            // '<input type="text" name="TrxDetail[0].BarangID"  value="' + vIdBarang + '" >' +
+                         '</td>' +
+                         '<td><input type="text" class="clJmlBarang" value=" ' + vJmlBarang + '"readonly ></td>' +
+                         '<td><input type="text" class="clSubTotal" value=" ' + vSubTotal + '" readonly></td>' +
+                         '<td><button type = "button" class="btn btn-danger clBtnRemoveBarang"  > - </button></td>' +
+                     '</tr>';
+                 $('#idTblBodyTransaction2').append(vStrHtmlTrasaksi);
+                 
+                 $('.clSubTotal').each(function (i, d) {
+                	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
+                     });
+                 $('#idtotalharga').val(vTotalHarga);
+             }
+             
+             
+    		 $('.clBtnRemoveBarang').click(function(){
+    			$(this).parent().parent().remove();
+    		
+    			
+    			
+    		 });
+		}); 
+		 
+	});
+	
+				
+	</script>
+
+</body>
+</html>

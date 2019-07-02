@@ -91,66 +91,6 @@
 	</div>
 	<!-- /.modal -->
 	
-	
-			<!-- modal untuk delete barang -->
-	<div id="idMdlDeleteBarang" class="modal fade" tabindex="-1"
-		role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div id="idMdlBodyDeleteBarang" class="modal-body">
-				
-					<!-- form untuk delete barang -->
-					<form class="form-horizontal" id="idFrmDeleteBarang"  th:object="${barangs}">
-					
-						<div class="form-group">
-							<label for="namabarang" class="col-sm-2 control-label">Nama barang</label>
-							<div class="col-sm-10">
-								<input type="hidden" class="form-control" id="iddeleteid" name="id" placeholder="id">
-								<input type="text" class="form-control" id="iddeletenamabarang" name="namabarang" placeholder="Nama Barang" readonly>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="jenisbarang" class="col-sm-2 control-label">Jenis Barang</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="iddeletejenisbarang" name="jenisbarang" placeholder="Jenis Barang" readonly>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="kotapembuat" class="col-sm-2 control-label">Kota Pembuat</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="iddeletekotapembuat" name="kotapembuat" placeholder="Kota Pembuat" readonly>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="jmlbarang" class="col-sm-2 control-label">Jumlah Barang</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="iddeletejmlbarang" name="jmlbarang" placeholder="Jumlah Barang" readonly>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="hargabarang" class="col-sm-2 control-label">Harga Barang</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="iddeletehargabarang" name="hargabarang" placeholder="Harga Barang" readonly>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="button" class="btn btn-default" id="idBtnDeleteBarang">Delete</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
 
 	<script>
 		$(document).ready(function() {
@@ -213,34 +153,6 @@
 				});
 			});
 			
-			$('#idBtnDeleteBarang').click(function(){
-				
-				var vDatabarang = $('#idFrmDeleteBarang').serialize();
-				debugger;
-				$.ajax({
-					url:'./deletebarang',
-					type:'DELETE',
-					data:vDatabarang,
-					dataType: "json",
-					success: function(model){
-
-						if(model.status == "berhasil"){
-							alert("Data berhasil di hapus");
-							$('#idMdlDeleteBarang').modal('hide');
-							/*redirecting to home of barang */
-							window.location.replace("http://localhost:8787/barang");
-							
-						}
-						else{
-							alert("Data salah");
-						}
-					},
-					error: function(model){
-						debugger;
-					}
-					
-				});
-			});
 		});
 	</script>
 </body>
