@@ -3,12 +3,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../styles/css/bootstrap.min.css">
+<link rel="stylesheet" href="../styles/jquery-ui.min.css">
+<link rel="stylesheet" href="../styles/datatables.min.css">
+<script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../styles/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../scripts/datatables.min.js"></script>
 </head>
 <body>
 
 	<!-- Nulis table didalam body -->
 	<div class="table-responsive">
-		<table class="table">
+		<table id="idTableTransactionKiri" class="table" >
 			<thead>
 				<tr>
 					<td>Nama</td>
@@ -42,8 +49,9 @@
 	<script>
 	$(document).ready(function(){
 		
-        
+        $('#idTableTransactionKiri').DataTable();
 		 $('.clBtnAddTransaction').click(function() {
+			 reIndexTable();
 		        var vCtr = 0;
 		        var VCompare = true;
 		        var vJmlBarang = 1;
@@ -55,6 +63,14 @@
 			    vSubTotal=JSON.parse($(this).attr('data-hrgbarang'));
 				var vStrHtmlTrasaksi = '';
 				
+				function TotalHarga()
+				{
+	                 $('.clSubTotal').each(function (i, d) {
+	                	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
+	                     });
+	                 $('#idtotal').val(vTotalHarga);
+				}
+				
              $('.clIdBarang').each(function (i, d) {
                  
                  if (vIdBarang == parseInt($(this).val())) {
@@ -65,10 +81,7 @@
                      $(this).parent().parent().find('td input:text.clJmlBarang').val(vJmlBarang);
                      vSubTotal = vJmlBarang * vSubTotal;
                      $(this).parent().parent().find('td input:text.clSubTotal').val(vSubTotal);
-                     $('.clSubTotal').each(function (i, d) {
-                    	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
-                         });
-                     $('#idtotal').val(vTotalHarga);
+                     TotalHarga();
                      debugger;
                  }
              });
@@ -89,21 +102,19 @@
                  vStrHtmlTrasaksi = vStrHtmlTrasaksi +
                      '<tr>' +
                          '<td>' +
-                            '<input type="text" class="clNmBarang" value=" ' + $(this).attr('data-nmbarang') + '" readonly>' +
+                            '<input type="text" class="clNmBarang"  value=" ' + $(this).attr('data-nmbarang') + '" readonly>' +
                              //'<input type="text" class="clNmBarang" dataID="' + vIdBarang + '" value=" ' + $(this).attr('data-nmbarang') + '" readonly>' +
-                             '<input type="text" class="clIdBarang" value="' + $(this).attr('data-id') + '" readonly>' +
+                             '<input type="text" class="clIdBarang" name="detailtransaction[0].idbarang" value="' + $(this).attr('data-id') + '" readonly>' +
                             // '<input type="text" name="TrxDetail[0].BarangID"  value="' + vIdBarang + '" >' +
                          '</td>' +
-                         '<td><input type="text" class="clJmlBarang" value=" ' + vJmlBarang + '"readonly ></td>' +
+                         '<td><input type="text" class="clJmlBarang" name="detailtransaction[0].jml" value=" ' + vJmlBarang + '"readonly ></td>' +
+                         'debugger;'+
                          '<td><input type="text" class="clSubTotal" value=" ' + vSubTotal + '" readonly></td>' +
                          '<td><button type = "button" class="btn btn-danger clBtnRemoveBarang"  > - </button></td>' +
                      '</tr>';
                  $('#idTblBodyTransactionKanan').append(vStrHtmlTrasaksi);
-                 
-                 $('.clSubTotal').each(function (i, d) {
-                	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
-                     });
-                 $('#idtotal').val(vTotalHarga);
+                 reIndexTable();
+                 TotalHarga();
              }
              
              
@@ -113,9 +124,30 @@
                    	 debugger;
                  });
     			$(this).parent().parent().remove();
-
+    			reIndexTable();
                 $('#idtotal').val(vTotalHarga);
     		 });
+    		 
+    		 
+             function reIndexTable() {
+                 var rowCount = $('#idTblBodyTransactionKanan tr').length;
+                 debugger;
+     
+                 if (rowCount > 0) {
+                   //  var idx = 0;
+                     $.each($("#idTblBodyTransactionKanan").find("tr"), function (idx, val) {
+                         //alert(idx);
+                         var vIdBarang = $(this).find(":input[name*='.idbarang']");
+                         var vJml=$(this).find(":input[name*='.jml']");
+                         debugger;
+                         $(vIdBarang).attr("name", vIdBarang.attr("name").replace(/\[.*?]\s?/g, "[" + idx + "]"));
+                         $(vJml).attr("name", vJml.attr("name").replace(/\[.*?]\s?/g, "[" + idx + "]"));
+                         //idx += 1;
+                     });
+                 }
+             }
+    		 
+    		 
 		}); 
 		 
 	});
