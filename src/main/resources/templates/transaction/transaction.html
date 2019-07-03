@@ -4,16 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../styles/css/bootstrap.min.css">
+<link rel="stylesheet" href="../styles/jquery-ui.min.css">
 <script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../styles/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery-ui.min.js"></script>
 </head>
 <body>
-
+<form class="form-horizontal" id="idFrmTransaction">
 	<div class="row">
 		<!-- kolom sebelah kiri -->
 		<div class="col-md-6">
 
-			<form class="form-horizontal" id="idFrmTotalTransaction">
+
 				<div class="form-group">
 					<label for="nofaktur" class="col-sm-2 control-label"><br>
 					<br>No. Faktur</label>
@@ -25,7 +27,7 @@
 				<div class="form-group">
 					<label for="tanggal" class="col-sm-2 control-label">Tanggal</label>
 					<div class="col-sm-6">
-						<input type="date" class="form-control" id="idtanggal" name="tanggal">
+						<input type="text" class="form-control" id="idtglpenjualan" name="tglpenjualan">
 					</div>
 				</div>
 
@@ -38,14 +40,13 @@
 
 				<div class="form-group">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" id="idcari" name="cari"
-							placeholder="cari">
+						<input type="text" class="form-control" id="idcari" placeholder="cari">
 					</div>
 				</div>
-			</form>
+
 
 			<!-- tempat untuk jahit table -->
-			<div id="idDivTableTransaction"></div>
+			<div id="idDivTableTransactionKiri"></div>
 
 		</div>
 
@@ -55,7 +56,7 @@
 
 			<!-- tempat untuk jahit table -->
 
-			<div class="table-responsive" id="idDivTableTransaction2">
+			<div class="table-responsive" id="idDivTableTransactionKanan">
 					<table class="table">
 			<thead>
 				<tr>
@@ -65,82 +66,103 @@
 					<td>Action</td>
 				</tr>
 			</thead>
-			<tbody id="idTblBodyTransaction2">
+			<tbody id="idTblBodyTransactionKanan">
 
 
 			</tbody>
-		</table>
-			</div>
+		  </table>
+		  </div>
 
-			<form class="form-horizontal" id="idFrmTotalTransaction">
+
 				<div class="form-group">
 					<label for="totalharga" class="col-sm-2 control-label">Total harga</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="idtotalharga"  name="totalharga" readonly>
+						<input type="text" class="form-control" id="idtotal"  name="total" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="bayar" class="col-sm-2 control-label">Bayar</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="idbayar" name="bayar">
+						<input type="text" class="form-control" id="idbayar">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="sisa" class="col-sm-2 control-label">Sisa</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="idsisa" name="sisa">
+						<input type="text" class="form-control" id="idreturncash" name="returncash" readonly>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-6 col-sm-10">
-						<button type="button" class="btn btn-default"
-							id="idBtnSaveTransaction">Submit</button>
+						<button type="button" class="btn btn-default" id="idBtnTransaction">Submit</button>
 					</div>
 				</div>
-			</form>
-
 		</div>
 	</div>
-
+</form>
 
 	<script>
 		$(document).ready(function() {
 		
+            $("#idtglpenjualan").datepicker({
+                minDate: 0, 
+                dateFormat: "dd/mm/yy"
+            }).datepicker("setDate", new Date());
 
 			$.ajax({
 				url : './listbarangtransaction',
 				method : 'Get',
 				success : function(model) {
 
-					$('#idDivTableTransaction').html(model);
+					$('#idDivTableTransactionKiri').html(model);
 				},
 				error : function(model) {
 					debugger;
 				}
 			});
+			
 		
 			$('#idbayar').keypress(function(e) {
 			    if(e.which == 13) {
-			    	var vBayar=document.getElementById("idbayar").value;
-			    	var vTotal=document.getElementById("idtotalharga").value;
+			    	var vBayar=parseInt(document.getElementById("idbayar").value);
+			    	var vTotal=parseInt(document.getElementById("idtotal").value);
 			    	debugger;
 			        if(vBayar==0)
 			        	{
-			        	alert('Tidak Boleh 0');
+			        	debugger;
+			        	alert('Tidak Boleh Kosong');
 			        	}
-			        else if(vBayar < vTotal)
+			        else if(vBayar >= vTotal)
 			        {
+			        	debugger;
+			        	var vSisa= vBayar-vTotal;
+			        	$('#idreturncash').val(vSisa);
+
+			        }
+			        else
+			        {
+			        	debugger;
 			        	alert('Uang Kurang');
 			        }
-			        else if(vBayar >= vTotal)
-			        	{
-			        	  var vSisa= vBayar-vTotal;
-			        	  $('#idsisa').val(vSisa);
-			        	  debugger;
-			        	}
 			    }
+			});
+			
+			$('#idBtnTransaction').click(function(){
+				var vDatatransaction = $('#idFrmTransaction').serialize();
+				debugger;
+				$.ajax({
+					url:'./savetransaction',
+					method:'POST',
+					data:vDatatransaction,
+					success: function(model){
+						debugger;
+					},
+					error:function(model){
+						debugger;
+					}
+				})
 			});
 		});
 	</script>

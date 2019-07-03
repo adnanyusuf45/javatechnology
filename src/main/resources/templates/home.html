@@ -2,16 +2,109 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<script type="text/javascript" src="../scripts/jquery-3.4.1.min.js"></script>
+<title>Template Layout Admin LTE</title>
+<link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
-	Selamat Datang
+<!------ Include the above in your HEAD tag ---------->
+<nav class="navbar navbar-default navbar-static-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
+			<ul class="nav navbar-nav navbar-left">
+				<li class="dropdown ">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					Menu 1
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="dropdown-header">SETTINGS</li>
+					</ul>
+				</li>
+				<li class="dropdown ">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					Menu 2
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="dropdown-header">SETTINGS</li>
+					</ul>
+				</li>
+				<li class="dropdown ">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					Menu 3
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="dropdown-header">SETTINGS</li>
+					</ul>
+				</li>
+			</ul>
+			
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+		</nav>
+		<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+	  		<div class="container">
+		  		<div class="navbar-header">
+		  			<a class="navbar-brand" href="#">
+						<img 
+	             src="/img/xsis.png">
+					</a>
+				</div>
+			</div>
+		</nav>
+
+	<div class="container main-container">
+		<div class="col-md-2 sidebar">
+			<ul class="list-group">
+				<li><a href="/barang" class="list-group-item">Barang</a></li>		
+				<li><a href="/transaction" class="list-group-item">Transaction</a></li>	
 	
-		<script>
-		$(document).ready(function(){
-			debugger;
-		});
-		</script>
+				
+			</ul>
+		</div>
+			<div class="col-md-10 content">
+                
+                <div id="fragment"></div>
+                
+            </div> 
+            
+		<footer>
+			<p class="col-md-12" align="center">
+				Copyright &copy; 2019 Batch 198 XSIS Mitra Utama
+			</p>
+		</footer>
+	</div>
 </body>
+<script src="../bootstrap/dist/js/jquery.min.js"></script>
+<script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bootbox/bootbox.min.js"></script>
+<script>
+
+	
+	$('.list-group-item').click(function(){
+		var url=$(this).attr('href');
+		$.ajax({
+			url : url,
+			type : 'get',
+			dataType : 'html',
+			success : function(result) {
+				$('#fragment').html(result);
+			}
+		});
+		
+		return false;
+	});
+	
+</script>
 </html>

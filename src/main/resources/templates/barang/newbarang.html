@@ -52,6 +52,7 @@
 <script type="text/javascript">
 	$('#idBtnSaveBarang').click(function(){
 		var vDatabarang = $('#idFrmAddBarang').serialize();
+		debugger;
 		$.ajax({
 			url:'./savebarang',
 			data:vDatabarang,

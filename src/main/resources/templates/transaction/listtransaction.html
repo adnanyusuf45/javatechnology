@@ -23,7 +23,7 @@
 					<td th:text="${item.jenisbarang}">JenisBarang</td>
 					<td th:text="${item.hargabarang}">Harga</td>
 					<td>
-						<button class="btn btn-primary clBtnAddTransaction"
+						<button type="button" class="btn btn-primary clBtnAddTransaction"
 							th:data-id="${item.id}" th:data-nmbarang="${item.namabarang}"
 							th:data-jnsbarang="${item.jenisbarang}"
 							th:data-ktpembuat="${item.kotapembuat}"
@@ -68,7 +68,7 @@
                      $('.clSubTotal').each(function (i, d) {
                     	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
                          });
-                     $('#idtotalharga').val(vTotalHarga);
+                     $('#idtotal').val(vTotalHarga);
                      debugger;
                  }
              });
@@ -98,20 +98,23 @@
                          '<td><input type="text" class="clSubTotal" value=" ' + vSubTotal + '" readonly></td>' +
                          '<td><button type = "button" class="btn btn-danger clBtnRemoveBarang"  > - </button></td>' +
                      '</tr>';
-                 $('#idTblBodyTransaction2').append(vStrHtmlTrasaksi);
+                 $('#idTblBodyTransactionKanan').append(vStrHtmlTrasaksi);
                  
                  $('.clSubTotal').each(function (i, d) {
                 	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
                      });
-                 $('#idtotalharga').val(vTotalHarga);
+                 $('#idtotal').val(vTotalHarga);
              }
              
              
     		 $('.clBtnRemoveBarang').click(function(){
+                 $('.clSubTotal').each(function (i, d) {
+                   	 vTotalHarga=vTotalHarga-parseInt($(this).val());
+                   	 debugger;
+                 });
     			$(this).parent().parent().remove();
-    		
-    			
-    			
+
+                $('#idtotal').val(vTotalHarga);
     		 });
 		}); 
 		 
