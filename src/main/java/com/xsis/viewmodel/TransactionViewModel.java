@@ -1,22 +1,21 @@
-package com.xsis.model;
+package com.xsis.viewmodel;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
+import com.xsis.model.DetailTransaction;
 
 
-@Entity
-@Table (name="mastertransaction")
-public class MasterTransaction {
-
+public class TransactionViewModel {
+	
 	@Id
 	@Column(name="id", nullable=false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 	
 	@Column(name="nofaktur")
@@ -33,6 +32,8 @@ public class MasterTransaction {
 	
 	@Column(name="returncash")
 	private Long returncash;
+	
+	private List<DetailTransaction>detailtransaction;
 
 	public Long getId() {
 		return id;
@@ -81,5 +82,16 @@ public class MasterTransaction {
 	public void setReturncash(Long returncash) {
 		this.returncash = returncash;
 	}
+
+	public List<DetailTransaction> getDetailtransaction() {
+		return detailtransaction;
+	}
+
+	public void setDetailtransaction(List<DetailTransaction> detailtransaction) {
+		this.detailtransaction = detailtransaction;
+	}
+
+	
+	
 	
 }

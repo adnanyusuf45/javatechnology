@@ -66,7 +66,9 @@
 				function TotalHarga()
 				{
 	                 $('.clSubTotal').each(function (i, d) {
-	                	 vTotalHarga=parseInt($(this).val())+vTotalHarga;
+	                	 debugger;
+	                	 vtemp=parseInt($(this).val());
+	                	 vTotalHarga=vtemp+vTotalHarga;
 	                     });
 	                 $('#idtotal').val(vTotalHarga);
 				}
@@ -120,12 +122,15 @@
              
     		 $('.clBtnRemoveBarang').click(function(){
                  $('.clSubTotal').each(function (i, d) {
+                	 debugger;
                    	 vTotalHarga=vTotalHarga-parseInt($(this).val());
+                   	 $('#idtotal').val(vTotalHarga);
                    	 debugger;
                  });
+                
     			$(this).parent().parent().remove();
     			reIndexTable();
-                $('#idtotal').val(vTotalHarga);
+
     		 });
     		 
     		 
